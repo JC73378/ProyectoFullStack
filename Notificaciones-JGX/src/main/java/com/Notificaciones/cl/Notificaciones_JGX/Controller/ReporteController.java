@@ -1,5 +1,6 @@
 package com.Notificaciones.cl.Notificaciones_JGX.Controller;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,13 +21,15 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/v2/reportes")
+@Tag(name = "Reportes", description = "Operaciones relacionadas con los reportes de notificaciones")
+@RequestMapping("/api/reportes")
 public class ReporteController {
 
     @Autowired
     private ReportesService reportesService;
 
   @GetMapping
+  @Operation(summary = "Listar todos los reportes", description = "Obtiene una lista de todos los reportes de notificaciones.")
   public ResponseEntity<List<Reportes>> listar() {
     List<Reportes> reportes = reportesService.findAll();
     if(reportes.isEmpty()) {
@@ -36,6 +39,7 @@ public class ReporteController {
   }
 
   @PostMapping("/crear")
+  @Operation(summary = "Crear un nuevo reporte", description = "Guarda un nuevo reporte en la base de datos.")
   public ResponseEntity<Reportes> guardar(@RequestBody Reportes reporte) {
      Reportes reportenuevo= reportesService.saveReporte(reporte);
       return ResponseEntity.status(HttpStatus.CREATED).body(reportenuevo);
@@ -44,6 +48,7 @@ public class ReporteController {
 
 
   @GetMapping("/{id}")
+  @Operation(summary = "Buscar reporte por ID", description = "Obtiene un reporte específico por su ID.")
     public ResponseEntity<Reportes> buscar(@PathVariable Integer id) {
       Optional<Reportes> reporteOptional = reportesService.findById(id);
       if (reporteOptional.isPresent()) {
@@ -55,6 +60,7 @@ public class ReporteController {
 
 
      @PutMapping("/{id}")
+    @Operation(summary = "Actualizar reporte", description = "Actualiza un reporte existente por su ID.")
         public ResponseEntity<Reportes> actualizar(@PathVariable Integer id, @RequestBody Reportes reporte) {
         Optional<Reportes> reporteOptional = reportesService.findById(id);
           if (reporteOptional.isPresent()) {
@@ -73,6 +79,7 @@ public class ReporteController {
 }
 
   @DeleteMapping("/{id}")
+  @Operation(summary = "Eliminar reporte", description = "Elimina un reporte específico por su ID.")
     public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
       try {
         reportesService.deleteById(id);
