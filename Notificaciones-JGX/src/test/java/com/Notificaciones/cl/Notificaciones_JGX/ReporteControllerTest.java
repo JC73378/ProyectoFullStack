@@ -51,7 +51,7 @@ public void testListar() throws Exception {
 
     when(reportesService.findAll()).thenReturn(reportes);
 
-    mockMvc.perform(get("/api/v2/reportes"))
+    mockMvc.perform(get("/api/reportes"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$[0].nombre_profesor").value("Profesor A"));
 }
@@ -78,7 +78,7 @@ public void testGuardar() throws Exception {
 
     when(reportesService.saveReporte(reporte)).thenReturn(reporteGuardado);
 
-    mockMvc.perform(post("/api/v2/reportes/crear")
+    mockMvc.perform(post("/api/reportes/crear")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(reporte)))
             .andExpect(status().isCreated())
@@ -102,7 +102,7 @@ public void testGuardar() throws Exception {
 
         when(reportesService.findById(id)).thenReturn(Optional.of(reporte));
 
-        mockMvc.perform(get("/api/v2/reportes/{id}", id))
+        mockMvc.perform(get("/api/reportes/{id}", id))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.nombre_profesor").value("Profesor A"));
     }
@@ -131,7 +131,7 @@ public void testGuardar() throws Exception {
         when(reportesService.findById(id)).thenReturn(Optional.of(reporteExistente));
         when(reportesService.saveReporte(reporteExistente)).thenReturn(reporteActualizado);
 
-        mockMvc.perform(put("/api/v2/reportes/{id}", id)
+        mockMvc.perform(put("/api/reportes/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(reporteActualizado)))
                 .andExpect(status().isOk())
