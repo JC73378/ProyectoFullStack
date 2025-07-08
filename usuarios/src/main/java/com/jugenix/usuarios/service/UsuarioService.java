@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service // Componente de lógica de negocio
 public class UsuarioService {
@@ -33,6 +34,10 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
+    // Buscar usuario por ID
+    public Optional<Usuario> buscarPorIdOptional(Long id) {
+        return usuarioRepository.findById(id);
+    }
     // Eliminar usuario por ID
     public void eliminar(Long id) {
         usuarioRepository.deleteById(id);
