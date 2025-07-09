@@ -23,13 +23,13 @@ public class InfraestructuraController {
     }
 
     @GetMapping
-    public ResponseEntity<List<InfraestructuraModel>> getAllInfraestructuras() {
-        return ResponseEntity.ok(infraestructuraService.getAllInfraestructuras());
+    public ResponseEntity<List<InfraestructuraModel>> buscarinfraestructura() {
+        return ResponseEntity.ok(infraestructuraService.buscarinfraestructura());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InfraestructuraModel> getInfraestructuraById(@PathVariable Long id) {
-        Optional<InfraestructuraModel> infraestructura = infraestructuraService.getInfraestructuraById(id);
+    public ResponseEntity<InfraestructuraModel> buscarporId(@PathVariable Long id) {
+        Optional<InfraestructuraModel> infraestructura = infraestructuraService.buscarporId(id);
         return infraestructura.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -42,7 +42,7 @@ public class InfraestructuraController {
 
     @PutMapping("/{id}")
     public ResponseEntity<InfraestructuraModel> updateInfraestructura(@PathVariable Long id, @RequestBody InfraestructuraModel infraestructura) {
-        Optional<InfraestructuraModel> infraestructuraExistente = infraestructuraService.getInfraestructuraById(id);
+        Optional<InfraestructuraModel> infraestructuraExistente = infraestructuraService.buscarporId(id);
         if (infraestructuraExistente.isPresent()) {
             InfraestructuraModel updatedInfraestructura = infraestructuraService.updateInfraestructura(id, infraestructura);
             return ResponseEntity.ok(updatedInfraestructura);

@@ -19,11 +19,11 @@ public class InfraestructuraService {
         this.infraestructuraRepository = infraestructuraRepository;
     }
 
-    public List<InfraestructuraModel> getAllInfraestructuras() {
+    public List<InfraestructuraModel> buscarinfraestructura() {
         return infraestructuraRepository.findAll();
     }
 
-    public Optional<InfraestructuraModel> getInfraestructuraById(Long id) {
+    public Optional<InfraestructuraModel> buscarporId(Long id) {
         return infraestructuraRepository.findById(id);
     }
 
